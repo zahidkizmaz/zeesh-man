@@ -57,6 +57,8 @@ zeesh_get "jeffreytse/zsh-vi-mode"
 
 ## Updating plugins
 
+In your terminal run this command to update your plugins:
+
 ```zsh
 zeesh-update
 ```
@@ -73,9 +75,10 @@ Bug reports/fixes are highly appreciated.
 
 ### Story of this plugin
 
-So far I have been manually managing my plugins. This fairly easy for me because I had only 2 plugins.
-Recently, I wanted to add one more plugin and I felt like it is time for a plugin manager.
-However, what I wanted is very simple without any overhead. Just download the plugin and source it.
-Additionally, update the plugins with a custom command.
+So far I have been manually managing Zsh plugins that I use in my .zshrc file.
+Sourcing them and updating them occasionally was fairly easy for me because I had only 2 plugins.
+Recently, I wanted to add more plugins to my Zsh setup and I felt like it is time for a plugin manager.
+However, what I wanted was a very simple plugin manager with minimal overhead.
+Just downloading the plugin and sourcing it, allowing me to update it with a single command.
 
 These needs created the **zeesh-man**
