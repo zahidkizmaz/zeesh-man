@@ -1,6 +1,4 @@
 #!/usr/bin/env zsh
-set -eo pipefail
-IFS=$'\n\t'
 
 ZEESH_DEBUG=${ZEESH_DEBUG:-0}
 ZEESH_DRY_RUN=${ZEESH_DRY_RUN:-0}
