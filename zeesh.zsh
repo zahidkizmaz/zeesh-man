@@ -5,6 +5,7 @@ IFS=$'\n\t'
 ZEESH_DRY_RUN=${ZEESH_DRY_RUN:-0}
 DATA_HOME=${XDG_DATA_HOME:-"$HOME/.local/share"}
 PLUGIN_DIR="$DATA_HOME/zeesh"
+SOURCED_PLUGINS=()
 
 GITHUB_URL="https://github.com/"
 GIT_DOWNLOAD_COMMAND="git clone --depth=1 --quiet"
@@ -40,25 +41,28 @@ function _download_plugin() {
 }
 
 function _source_plugin() {
-  local plugin_dir="${1}"
+  local plugin_location="${1}"
   local repo_name="${2}"
 
-  if [[ ! -f $plugin_dir/$.plugin.zsh ]]; then
-    echo "DEBUG: sourcing $plugin_dir/$repo_name.plugin.zsh"
-    _command "source $plugin_dir/$repo_name.plugin.zsh"
+  if [[ ! -f $plugin_location/$.plugin.zsh ]]; then
+    echo "DEBUG: sourcing $plugin_location/$repo_name.plugin.zsh"
+    _command "source $plugin_location/$repo_name.plugin.zsh"
+    SOURCED_PLUGINS+=($plugin_location)
     return 0
-  elif [[ ! -f $plugin_dir/$.zsh ]]; then
-    echo "DEBUG: sourcing $plugin_dir/$repo_name.zsh"
-    _command "source $plugin_dir/$repo_name.zsh"
+  elif [[ ! -f $plugin_location/$.zsh ]]; then
+    echo "DEBUG: sourcing $plugin_location/$repo_name.zsh"
+    _command "source $plugin_location/$repo_name.zsh"
+    SOURCED_PLUGINS+=($plugin_location)
     return 0
   fi
-  echo "WARNING: could find anything to source in $plugin_dir"
+  echo "WARNING: could find anything to source in $plugin_location"
+  return 1
 }
 
 function setup() {
-  printf "DEBUG: zeesh initializing..."
-
+  echo "DEBUG: zeesh initializing..."
   _create_plugin_dir
+  return 0
 }
 
 function zeesh_get() {
@@ -71,7 +75,14 @@ function zeesh_get() {
     echo "DEBUG: $plugin doesn't exists. Downloading..."
     _download_plugin "$plugin" "${user_and_repo_name[2]}"
   fi
+
+  if [[ ${SOURCED_PLUGINS[@]} =~ $plugin_location ]]; then
+    echo "DEBUG: Already sourced $plugin_location."
+    return 0
+  fi
   _source_plugin "$plugin_location" "${user_and_repo_name[2]}"
+  echo "DEBUG: Sourced plugins: ${SOURCED_PLUGINS[@]}"
+  return 0
 }
 
 setup
