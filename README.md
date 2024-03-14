@@ -10,6 +10,24 @@ zeesh-man does 3 things:
 
 ## Installation
 
+### Bootstrapping (Recommended)
+
+```zsh
+# Clone zeesh-man
+if [[ ! -f $HOME/.zeesh-man/zeesh.zsh ]]; then
+  command git clone https://github.com/zahidkizmaz/zeesh-man.git $HOME/.zeesh-man
+fi
+export ZEESH_DEBUG=1
+source $HOME/.zeesh-man/zeesh.zsh
+
+# Install plugins
+zeesh_get "zsh-users/zsh-syntax-highlighting"
+zeesh_get "zsh-users/zsh-autosuggestions"
+zeesh_get "jeffreytse/zsh-vi-mode"
+```
+
+### Manual
+
 #### Step 1
 
 Clone the repository:
@@ -27,6 +45,8 @@ source $HOME/.zeesh-man/zeesh.zsh
 ```
 
 ## Installing plugins
+
+In .zshrc file:
 
 ```zsh
 source $HOME/.zeesh-man/zeesh.zsh
