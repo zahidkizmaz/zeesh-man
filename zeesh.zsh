@@ -31,9 +31,11 @@ function _create_plugin_dir() {
 
 function _download_plugin() {
   local plugin_name="${1}"
+  local plugin_folder_name="${2}"
   local plugin_url="$GITHUB_URL$plugin_name.git"
+
   echo "INFO: Downloading plugin: $plugin_name"
-  _command "cd $PLUGIN_DIR; $GIT_DOWNLOAD_COMMAND $plugin_url"
+  _command "$GIT_DOWNLOAD_COMMAND $plugin_url $PLUGIN_DIR/$plugin_folder_name"
   return 0
 }
 
@@ -67,10 +69,9 @@ function zeesh_get() {
 
   if [[ ! -d $plugin_location ]]; then
     echo "DEBUG: $plugin doesn't exists. Downloading..."
-    _download_plugin "$plugin"
+    _download_plugin "$plugin" "${user_and_repo_name[2]}"
   fi
   _source_plugin "$plugin_location" "${user_and_repo_name[2]}"
 }
 
 setup
-zeesh_get "jeffreytse/zsh-vi-mode"
