@@ -47,3 +47,8 @@ zeesh-update
 Debug mode can be enabled by `export ZEESH_DEBUG=1`.
 
 Dry run mode can be enabled by `export ZEESH_DRY_RUN=1`.
+
+## WARNING
+
+zeesh-man is at experimental state. Please use it at your own risk!
+Bug reports/fixes are highly appreciated.
