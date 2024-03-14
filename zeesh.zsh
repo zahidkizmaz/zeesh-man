@@ -25,13 +25,13 @@ function _command() {
 
 function _log() {
   if [[ $ZEESH_DEBUG -eq 1 ]]; then
-    echo "$1"
+    echo "$@"
   fi
 }
 
 function _create_plugin_dir() {
   if [[ ! -d $PLUGIN_DIR ]]; then
-    _log "WARNING: $PLUGIN_DIR doesn't exists. Creating directory: $PLUGIN_DIR."
+    _log "INFO: $PLUGIN_DIR doesn't exists. Creating directory: $PLUGIN_DIR."
     _command "mkdir -p $PLUGIN_DIR"
   fi
   return 0
@@ -90,6 +90,19 @@ function zeesh_get() {
   _source_plugin "$plugin_location" "${user_and_repo_name[2]}"
   _log "DEBUG: Sourced plugins: ${SOURCED_PLUGINS[@]}"
   return 0
+}
+
+function _zeesh_update_plugin() {
+  local plugin_location=$1
+  _log "DEBUG: Updating plugin $plugin_location."
+  _command "git -C $plugin_location pull origin HEAD --rebase"
+}
+
+function zeesh_update() {
+  _log "INFO: updating plugins: ${SOURCED_PLUGINS[@]}"
+  for plugin_dir in "${SOURCED_PLUGINS[@]}"; do
+    _zeesh_update_plugin $plugin_dir
+  done
 }
 
 setup
