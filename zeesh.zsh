@@ -98,7 +98,7 @@ function _zeesh_update_plugin() {
   _command "git -C $plugin_location pull origin HEAD --rebase"
 }
 
-function zeesh_update() {
+function zeesh-update() {
   _log "INFO: updating plugins: ${SOURCED_PLUGINS[@]}"
   for plugin_dir in "${SOURCED_PLUGINS[@]}"; do
     _zeesh_update_plugin $plugin_dir
