@@ -45,8 +45,6 @@ Source zeesh-man in your .zshrc:
 source ${XDG_DATA_HOME:-"$HOME/.local/share"}/zeesh/zeesh-man/zeesh.zsh
 ```
 
-**Note**: zeesh-man update script can update itself only if zeesh-man is placed into `${XDG_DATA_HOME:-"$HOME/.local/share"}`
-
 ## Installing plugins
 
 In .zshrc file:
@@ -61,13 +59,11 @@ zeesh_get "jeffreytse/zsh-vi-mode"
 
 ## Updating plugins
 
-In your terminal run this command to update your plugins:
+In your terminal run this command to update your plugins and zeesh-man:
 
 ```zsh
 zeesh-update
 ```
-
-This will also update the zeesh-man.
 
 ## Configuring zeesh-man
 
