@@ -4,7 +4,7 @@ ZEESH_DEBUG=${ZEESH_DEBUG:-0}
 ZEESH_DRY_RUN=${ZEESH_DRY_RUN:-0}
 DATA_HOME=${XDG_DATA_HOME:-"$HOME/.local/share"}
 PLUGIN_DIR="$DATA_HOME/zeesh"
-SOURCED_PLUGINS=()
+SOURCED_PLUGINS=("$PLUGIN_DIR/zeesh-man")
 
 GITHUB_URL="https://github.com/"
 GIT_DOWNLOAD_COMMAND="git clone --depth=1 --quiet"
@@ -13,7 +13,7 @@ function _command() {
   local cmd=$1
 
   if [[ $ZEESH_DRY_RUN -eq 1 ]]; then
-    echo "WARNING: zeehs is in dry run mode! Commands will not be executed."
+    echo "WARNING: zeesh is in dry run mode! Commands will not be executed."
     echo "$cmd"
     return 0
   fi
@@ -50,23 +50,24 @@ function _source_plugin() {
   local repo_name="${2}"
 
   if [[ ! -f $plugin_location/$.plugin.zsh ]]; then
-    _log "DEBUG: sourcing $plugin_location/$repo_name.plugin.zsh"
+    _log "DEBUG: Sourcing $plugin_location/$repo_name.plugin.zsh"
     _command "source $plugin_location/$repo_name.plugin.zsh"
     SOURCED_PLUGINS+=($plugin_location)
     return 0
   elif [[ ! -f $plugin_location/$.zsh ]]; then
-    _log "DEBUG: sourcing $plugin_location/$repo_name.zsh"
+    _log "DEBUG: Sourcing $plugin_location/$repo_name.zsh"
     _command "source $plugin_location/$repo_name.zsh"
     SOURCED_PLUGINS+=($plugin_location)
     return 0
   fi
-  _log "WARNING: could find anything to source in $plugin_location"
+  _log "WARNING: Could not find anything to source in $plugin_location"
   return 1
 }
 
 function setup() {
-  _log "DEBUG: zeesh initializing..."
+  _log "DEBUG: Initializing zeesh-man..."
   _create_plugin_dir
+  _log "DEBUG: Plugin location: $PLUGIN_DIR"
   return 0
 }
 
@@ -97,7 +98,7 @@ function _zeesh_update_plugin() {
 }
 
 function zeesh-update() {
-  _log "INFO: updating plugins: ${SOURCED_PLUGINS[@]}"
+  _log "INFO: Updating plugins: ${SOURCED_PLUGINS[@]}"
   for plugin_dir in "${SOURCED_PLUGINS[@]}"; do
     _zeesh_update_plugin $plugin_dir
   done

@@ -12,12 +12,14 @@
 
 If you want to automatically install and set up zeesh-man:
 
+Copy this in to your .zshrc file:
+
 ```zsh
 # Clone zeesh-man
-if [[ ! -f $HOME/.zeesh-man/zeesh.zsh ]]; then
-  command git clone https://github.com/zahidkizmaz/zeesh-man.git $HOME/.zeesh-man
+if [[ ! -f ${XDG_DATA_HOME:-"$HOME/.local/share"}/zeesh/zeesh-man/zeesh.zsh ]]; then
+  command git clone https://github.com/zahidkizmaz/zeesh-man.git ${XDG_DATA_HOME:-"$HOME/.local/share"}/zeesh/zeesh-man
 fi
-source $HOME/.zeesh-man/zeesh.zsh
+source ${XDG_DATA_HOME:-"$HOME/.local/share"}/zeesh/zeesh-man/zeesh.zsh
 
 # Install plugins
 zeesh_get "zsh-users/zsh-syntax-highlighting"
@@ -32,7 +34,7 @@ zeesh_get "jeffreytse/zsh-vi-mode"
 Clone the repository:
 
 ```zsh
-git clone https://github.com/zahidkizmaz/zeesh-man.git $HOME/.zeesh-man
+git clone https://github.com/zahidkizmaz/zeesh-man.git ${XDG_DATA_HOME:-"$HOME/.local/share"}/zeesh/zeesh-man
 ```
 
 #### Step 2
@@ -40,8 +42,10 @@ git clone https://github.com/zahidkizmaz/zeesh-man.git $HOME/.zeesh-man
 Source zeesh-man in your .zshrc:
 
 ```zsh
-source $HOME/.zeesh-man/zeesh.zsh
+source ${XDG_DATA_HOME:-"$HOME/.local/share"}/zeesh/zeesh-man/zeesh.zsh
 ```
+
+**Note**: zeesh-man update script can update itself only if zeesh-man is placed into `${XDG_DATA_HOME:-"$HOME/.local/share"}`
 
 ## Installing plugins
 
@@ -62,6 +66,8 @@ In your terminal run this command to update your plugins:
 ```zsh
 zeesh-update
 ```
+
+This will also update the zeesh-man.
 
 ## Configuring zeesh-man
 
