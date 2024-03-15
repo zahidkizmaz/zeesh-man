@@ -1,11 +1,12 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 export ZEESH_DEBUG=1
 
-if [[ ! -f ${XDG_DATA_HOME:-"$HOME/.local/share"}/zeesh/zeesh-man/zeesh.zsh ]]; then
-  command git clone https://github.com/zahidkizmaz/zeesh-man.git ${XDG_DATA_HOME:-"$HOME/.local/share"}/zeesh/zeesh-man
+zeesh_dir=${XDG_DATA_HOME:-"$HOME/.local/share"}/zeesh/zeesh-man
+if [[ ! -f $zeesh_dir/zeesh.zsh ]]; then
+  command git clone https://github.com/zahidkizmaz/zeesh-man.git "$zeesh_dir"
 fi
-source ${XDG_DATA_HOME:-"$HOME/.local/share"}/zeesh/zeesh-man/zeesh.zsh
+source "$zeesh_dir/zeesh.zsh"
 
 # Install plugins
 zeesh_get "zsh-users/zsh-syntax-highlighting"
