@@ -23,7 +23,7 @@ function _command() {
 
 function _log() {
   if [[ $ZEESH_DEBUG -eq 1 ]]; then
-    echo "$@"
+    echo "$(date +%Y-%m-%dT%H:%M:%S)|zeesh-man|$@"
   fi
 }
 
