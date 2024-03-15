@@ -4,7 +4,7 @@ ZEESH_DEBUG=${ZEESH_DEBUG:-0}
 ZEESH_DRY_RUN=${ZEESH_DRY_RUN:-0}
 DATA_HOME=${XDG_DATA_HOME:-"$HOME/.local/share"}
 PLUGIN_DIR="$DATA_HOME/zeesh"
-SOURCED_PLUGINS=("$PLUGIN_DIR/zeesh-man")
+SOURCED_PLUGINS=()
 
 GITHUB_URL="https://github.com/"
 GIT_DOWNLOAD_COMMAND="git clone --depth=1 --quiet"
@@ -65,7 +65,9 @@ function _source_plugin() {
 }
 
 function setup() {
-  _log "DEBUG: Initializing zeesh-man..."
+  local zeesh_zsh_location=$(dirname ${(%):-%x})
+  SOURCED_PLUGINS+=($zeesh_zsh_location)
+  _log "DEBUG: Initializing zeesh-man from:$zeesh_zsh_location"
   _create_plugin_dir
   _log "DEBUG: Plugin location: $PLUGIN_DIR"
   return 0
